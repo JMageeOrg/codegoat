@@ -1,0 +1,15 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+
+image: python:3.9
+
+pipelines:
+  default:
+    - step:
+        name: Run Prisma Cloud Checkov Scan
+        script:
+          - pip install checkov
+          - export PRISMA_API_URL="https://api4.prismacloud.io"
+          - checkov -d . --use-enforcement-rules --bc-api-key XXXXXXXXX::XXXXXXXXXXX=  --repo-id ABC-panw/Bitbucketkb --branch main -o cli -o junitxml --output-file-path console,CheckovReport.xml
